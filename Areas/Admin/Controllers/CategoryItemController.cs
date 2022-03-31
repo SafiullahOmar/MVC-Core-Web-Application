@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Entities;
+using WebApplication1.Extension;
 
 namespace WebApplication1.Areas.Admin.Controllers
 {
@@ -21,9 +22,24 @@ namespace WebApplication1.Areas.Admin.Controllers
         }
 
         // GET: Admin/CategoryItem
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int categoryId)
         {
-            return View(await _context.CategoryItem.ToListAsync());
+
+            List<CategoryItem> list = await (from catItem in _context.CategoryItem
+                                             where catItem.CategoryId == categoryId
+                                             select new CategoryItem
+                                             {
+                                                 Title = catItem.Title,
+                                                 Id = catItem.Id,
+                                                 Description = catItem.Description,
+                                                 DateTimeItemReleased = catItem.DateTimeItemReleased,
+                                                 MediaTypeId = catItem.MediaTypeId,
+                                                 CategoryId = categoryId
+                                             }).ToListAsync();
+            ViewBag.categoryId = categoryId;
+
+
+            return View(list);
         }
 
         // GET: Admin/CategoryItem/Details/5
@@ -45,9 +61,16 @@ namespace WebApplication1.Areas.Admin.Controllers
         }
 
         // GET: Admin/CategoryItem/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int categoryId)
         {
-            return View();
+            List<MediaType> mediaTypes = await _context.MediaType.ToListAsync();
+            CategoryItem categoryItem = new CategoryItem
+            {
+                CategoryId = categoryId,
+                MediaTypes = mediaTypes.ConvertToSelectList(0)
+            };
+
+            return View(categoryItem);
         }
 
         // POST: Admin/CategoryItem/Create

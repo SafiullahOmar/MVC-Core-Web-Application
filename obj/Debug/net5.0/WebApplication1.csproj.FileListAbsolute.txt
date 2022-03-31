@@ -465,3 +465,8 @@ D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net
 D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\Details.cshtml.g.cs
 D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\Edit.cshtml.g.cs
 D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\Index.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryItem\Create.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryItem\Delete.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryItem\Details.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryItem\Edit.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryItem\Index.cshtml.g.cs
