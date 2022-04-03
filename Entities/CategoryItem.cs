@@ -16,13 +16,15 @@ namespace WebApplication1.Entities
         [Required]
         public string  Title { get; set; }
         public int  CategoryId { get; set; }
-
         public string Description { get; set; }
 
         [NotMapped]
         public  virtual ICollection<SelectListItem> MediaTypes { get; set; }
         public int MediaTypeId { get; set; }
         public DateTime DateTimeItemReleased { get; set; }
+
+        [NotMapped]
+        public int ContentId { get; set; }
 
     }
 }

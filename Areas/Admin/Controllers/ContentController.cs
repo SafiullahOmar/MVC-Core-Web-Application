@@ -21,33 +21,16 @@ namespace WebApplication1.Areas.Admin.Controllers
         }
 
         // GET: Admin/Content
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Content.ToListAsync());
-        }
-
-        // GET: Admin/Content/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var content = await _context.Content
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (content == null)
-            {
-                return NotFound();
-            }
-
-            return View(content);
-        }
-
+       
         // GET: Admin/Content/Create
-        public IActionResult Create()
+        public IActionResult Create(int categoryItemId, int categoryId)
         {
-            return View();
+            Content content = new Content
+            {
+                CategoryId = categoryId,
+                CatId = categoryItemId
+            };
+            return View(content);
         }
 
         // POST: Admin/Content/Create
@@ -55,26 +38,28 @@ namespace WebApplication1.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,HTMLContent,VedioLink")] Content content)
+        public async Task<IActionResult> Create([Bind("Id,Title,HTMLContent,VedioLink,CatId,CategoryId")] Content content)
         {
             if (ModelState.IsValid)
             {
+                content.CategoryItem = await _context.CategoryItem.FindAsync(content.CatId);
                 _context.Add(content);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index),"CategoryItem",new { categoryId=content.CategoryId});
             }
             return View(content);
         }
 
         // GET: Admin/Content/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int categoryItemId, int categoryId)
         {
-            if (id == null)
+            if (categoryItemId == 0)
             {
                 return NotFound();
             }
 
-            var content = await _context.Content.FindAsync(id);
+            var content = await _context.Content.SingleOrDefaultAsync(item => item.CategoryItem.Id==categoryItemId);
+            content.CategoryId = categoryId;
             if (content == null)
             {
                 return NotFound();
@@ -87,7 +72,7 @@ namespace WebApplication1.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,HTMLContent,VedioLink")] Content content)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,HTMLContent,VedioLink,CategoryId")] Content content)
         {
             if (id != content.Id)
             {
@@ -112,39 +97,12 @@ namespace WebApplication1.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "CategoryItem", new { categoryId = content.CategoryId});
             }
             return View(content);
         }
 
-        // GET: Admin/Content/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var content = await _context.Content
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (content == null)
-            {
-                return NotFound();
-            }
-
-            return View(content);
-        }
-
-        // POST: Admin/Content/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var content = await _context.Content.FindAsync(id);
-            _context.Content.Remove(content);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+     
 
         private bool ContentExists(int id)
         {

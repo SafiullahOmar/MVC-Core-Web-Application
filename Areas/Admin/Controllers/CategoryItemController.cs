@@ -26,7 +26,14 @@ namespace WebApplication1.Areas.Admin.Controllers
         {
 
             List<CategoryItem> list = await (from catItem in _context.CategoryItem
+                                             join contentItem in _context.Content
+                                             on catItem.Id equals contentItem.Id
+                                             into gj
+                                             from subConnt  in gj.DefaultIfEmpty()
+
+                                             
                                              where catItem.CategoryId == categoryId
+
                                              select new CategoryItem
                                              {
                                                  Title = catItem.Title,
@@ -34,7 +41,9 @@ namespace WebApplication1.Areas.Admin.Controllers
                                                  Description = catItem.Description,
                                                  DateTimeItemReleased = catItem.DateTimeItemReleased,
                                                  MediaTypeId = catItem.MediaTypeId,
-                                                 CategoryId = categoryId
+                                                 CategoryId = categoryId,
+                                                 ContentId=(subConnt!=null ?subConnt.Id:0)
+                                                
                                              }).ToListAsync();
             ViewBag.categoryId = categoryId;
 
@@ -84,7 +93,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 _context.Add(categoryItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index),"CategoryItem",new { categoryId=categoryItem.CategoryId });
             }
             return View(categoryItem);
         }
