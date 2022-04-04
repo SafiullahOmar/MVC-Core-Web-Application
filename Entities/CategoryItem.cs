@@ -10,21 +10,30 @@ namespace WebApplication1.Entities
 {
     public class CategoryItem
     {
-
+        private DateTime _releaseDate = DateTime.MinValue;
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="select Title")]
         public string  Title { get; set; }
         public int  CategoryId { get; set; }
         public string Description { get; set; }
 
         [NotMapped]
         public  virtual ICollection<SelectListItem> MediaTypes { get; set; }
+
         public int MediaTypeId { get; set; }
-        public DateTime DateTimeItemReleased { get; set; }
+
+        [DisplayFormat( DataFormatString = "{0:yyyy-MM-dd}")]
+        [Display(Name ="Release Date")]
+        [Required]
+        public DateTime DateTimeItemReleased {
+            get;
+            set;
+        //    get { return (_releaseDate == DateTime.MinValue) ? DateTime.Now : _releaseDate; } set { _releaseDate = value; }
+        }
 
         [NotMapped]
-        public int ContentId { get; set; }
+        public int ContentId { get; set; }  
 
     }
 }

@@ -1,4 +1,12 @@
-﻿<li class="nav-item dropdown show">
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApplication1.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result , "Admin"))
+{
+<li class="nav-item dropdown show">
     <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">Admin</a>
     <div class="dropdown-menu">
         <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index" >Categories</a>
@@ -9,3 +17,4 @@
         <a class="dropdown-item" asp-controller="MediaType" asp-action="Index" asp-area="Admin">Media TYpes</a>
     </div>
 </li>
+}
