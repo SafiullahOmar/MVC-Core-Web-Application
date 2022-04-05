@@ -477,3 +477,8 @@ D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net
 D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\MediaType\Details.cshtml.g.cs
 D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\MediaType\Edit.cshtml.g.cs
 D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Admin\Views\MediaType\Index.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Login.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+D:\MyData\sample projects\MVC Web Core Application\WebApplication1\obj\Debug\net5.0\Razor\Views\Shared\_loginModalPartial.cshtml.g.cs
