@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,10 +76,26 @@ namespace WebApplication1.Controllers
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return PartialView("_RegistrationModalPartial", registrationModal);
                 }
-                ModelState.AddModelError("", "Registration Failure");
+                AddErros(result);
 
             }
             return PartialView("_RegistrationModalPartial", registrationModal);
+        }
+
+        [AllowAnonymous]
+        public async Task<bool> UserNameExists(string UserName) {
+
+            bool userNameExist =await _context.Users.AnyAsync(u => u.UserName.ToUpper() == UserName.ToUpper());
+            if (userNameExist)
+                return true;
+            else
+                return false;
+        }
+
+        private void AddErros(IdentityResult result) {
+            foreach (var errors in result.Errors) {
+                ModelState.AddModelError(string.Empty, errors.Description);
+            }
         }
         public IActionResult Index()
         {
