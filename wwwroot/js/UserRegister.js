@@ -2,11 +2,13 @@
     
     var UserRegisterButton = $("#registrationModal button[name='Register']").click(onUserRegisterClick);
     function onUserRegisterClick() {
-     
+
+        alert($('#registrationModal input[name="ConfirmPassword"]').val());
         var URL = "/UserAuth/RegisterUser";
         var antiForgeryToken = $("#registrationModal input[name='__RequestVerificationToken']").val();
         var Email = $('#registrationModal input[name="Email"]').val();
         var Password = $('#registrationModal input[name="Password"]').val();
+        var ConfirmPassword = $('#registrationModal input[name="ConfirmPassword"]').val();
         var FirstName = $('#registrationModal input[name="FirstName"]').val();
         var LastName = $('#registrationModal input[name="LastName"]').val();
         var Address = $('#registrationModal input[name="Address"]').val();
@@ -20,6 +22,7 @@
             LastName: LastName,
             Address: Address,
             PostCode: PostCode,
+            ConfirmPassword: ConfirmPassword,
             __RequestVerificationToken: antiForgeryToken
 
         };

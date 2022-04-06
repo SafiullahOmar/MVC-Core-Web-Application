@@ -57,7 +57,7 @@ namespace WebApplication1.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RegisterUser([Bind(include: "Email,Password,FirstName,LastName,Address,PostCode,AcceptUserAgreement,RegistrationInValid")] RegistrationModal registrationModal) {
+        public async Task<ActionResult> RegisterUser( RegistrationModal registrationModal) {
             registrationModal.RegistrationInValid = "true";
             if (ModelState.IsValid) {
                 ApplicationUser user = new ApplicationUser { 
