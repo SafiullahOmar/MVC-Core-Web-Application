@@ -2,18 +2,34 @@
     ViewData["Title"] = "Home Page";
 }
 
+@using Microsoft.AspNetCore.Identity
+@using WebApplication1.Data
+@inject SignInManager<ApplicationUser> signInManager;
+
+@if (signInManager.IsSignedIn(User))
+{
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+}
+else { 
+    <p>Please Login In </p>
+}
+
+
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <partial name="_loginModalPartial" />
 </div>
 
+<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <partial name="_RegistrationModalPartial" />
+</div>
+
 @section scripts{
     <script src="~/js/UserLogin.js"></script>
-
+    <script src="~/js/UserRegister.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 }

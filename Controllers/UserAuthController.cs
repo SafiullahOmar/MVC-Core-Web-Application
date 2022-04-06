@@ -54,6 +54,32 @@ namespace WebApplication1.Controllers
                return RedirectToAction("Index", "Home");
             }
         }
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterUser([Bind(include: "Email,Password,FirstName,LastName,Address,PostCode,AcceptUserAgreement,RegistrationInValid")] RegistrationModal registrationModal) {
+            registrationModal.RegistrationInValid = "true";
+            if (ModelState.IsValid) {
+                ApplicationUser user = new ApplicationUser { 
+                Email=registrationModal.Email,
+                UserName=registrationModal.Email,
+                FirstName=registrationModal.FirstName,
+                LastName=registrationModal.LastName,
+                Address=registrationModal.Address,
+                PostCode=registrationModal.PostCode
+                };
+
+                var result = await _userManager.CreateAsync(user, registrationModal.Password);
+                if (result.Succeeded) {
+                    registrationModal.RegistrationInValid = "";
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return PartialView("_RegistrationModalPartial", registrationModal);
+                }
+                ModelState.AddModelError("", "Registration Failure");
+
+            }
+            return PartialView("_RegistrationModalPartial", registrationModal);
+        }
         public IActionResult Index()
         {
             return View();
